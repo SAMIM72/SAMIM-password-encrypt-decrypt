@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAMIM | Cybersecurity Student</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/favicon.jpg">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0b1020">
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+  <canvas id="matrixCanvas"></canvas>
+  <button id="matrixToggleBtn" class="fixed top-2 right-2 z-20 btn-neon rounded-full hover-scale tilt-3d interactive-radius w-10 h-10 grid place-items-center text-white text-base font-semibold" aria-pressed="false" aria-label="Toggle matrix background" title="Toggle Matrix">雨</button>
+  <div id="app" class="w-full max-w-3xl mx-auto">
+  <div class="fade-in text-center">
+    <div class="w-32 h-32 rounded-full border-4 border-indigo-500 mb-4 mx-auto avatar-glow avatar-frame">
+      <img src="assets/profile.jpg" alt="SAMIM" width="128" height="128" loading="eager" decoding="async" class="avatar-crop" />
+    </div>
+    <h1 class="title font-bold mb-2">SAMIM</h1>
+    <p class="text-lg font-semibold text-indigo-300 mb-2">CYBER SECURITY STUDENT</p>
+    <p class="text-sm font-semibold text-emerald-300 mb-4">ETHICAL HACKER | SECURITY RESEARCHER</p>
+    <div class="flex justify-center space-x-4 mb-6">
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="link-neon hover-scale transition tilt-3d interactive-radius">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" class="social-icon" />
+      </a>
+      <a href="https://x.com/" target="_blank" rel="noopener noreferrer" class="link-neon hover-scale transition tilt-3d interactive-radius">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg" alt="Twitter" class="social-icon" />
+      </a>
+      <a href="https://github.com/samim" target="_blank" rel="noopener noreferrer" class="link-neon hover-scale transition tilt-3d interactive-radius">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub" class="social-icon" />
+      </a>
+    </div>
+    <p class="text-xs text-slate-300/80 mb-6">
+      Linux • Python • Networking • Wireshark • Web Security
+    </p>
+  </div>
+  <div class="w-full max-w-md glass-card p-6 tilt-3d interactive-radius mx-auto">
+    <button id="encryptBtn" class="w-full btn-neon text-white font-semibold py-3 px-4 rounded-lg hover-scale tilt-3d interactive-radius">
+      Encrypt
+    </button>
+    <div id="encryptionTab" class="mt-6 p-4 surface-muted rounded-lg hidden slide-in">
+      <h2 class="text-xl font-semibold text-emerald-400 mb-4">Generate Secure Password</h2>
+      <p class="text-emerald-300 font-medium text-sm mb-4 p-3 surface-muted rounded-lg shadow-sm scale-in">🔑 Please provide a unique name combined with a symbol or number to create a secure password (e.g., samim@321 , Indian_Army, Police@100).</p>
+      <div class="mb-4">
+        <div class="flex items-center gap-2">
+          <input
+            id="inputText"
+            type="password"
+            placeholder="Enter your password"
+            maxlength="20"
+            class="flex-1 min-w-0 p-2 border border-indigo-500/40 bg-transparent placeholder:text-slate-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm text-slate-100 input-neon"
+          />
+          <button id="toggleVisibility" type="button" class="px-3 py-2 text-xs rounded-lg surface-muted hover-scale shrink-0">Show</button>
+        </div>
+        <div class="w-full flex items-center justify-between mt-2">
+          <label class="switch text-sm text-emerald-300 font-semibold">
+            <input id="urlSafeToggle" type="checkbox" aria-label="Toggle URL safe mode">
+            <span class="switch-track"></span>
+            <span class="ml-2">URL-safe mode</span>
+          </label>
+          <span id="lengthCounter" class="text-sm text-indigo-200 whitespace-nowrap">0/20</span>
+        </div>
+      </div>
+      <button id="generateBtn" class="w-full btn-neon text-white font-semibold py-2 px-4 rounded-lg hover-scale tilt-3d interactive-radius">
+        Create
+      </button>
+      <div id="outputSection" class="mt-4 p-4 surface-muted rounded-lg hidden">
+        <p class="text-indigo-300 font-medium text-sm"><strong>Generated Output:</strong> <span id="outputText">[Encrypted output here]</span></p>
+        <button id="copyBtn" class="mt-2 btn-neon text-white font-semibold py-1 px-3 rounded-lg hover-scale tilt-3d interactive-radius">
+          Copy
+        </button>
+      </div>
+      <p class="text-red-400 font-medium italic text-sm mt-4 p-3 surface-muted border border-red-500/20 rounded-lg scale-in text-center">🔒 You need not remember the encrypted password; remember the original, and we will provide the encrypted format.</p>
+    </div>
+  </div>
+  <footer class="mt-10 text-center interactive-radius tilt-3d">
+    <p class="text-sm text-indigo-300/80 mb-2">© 2026 SAMIM. All rights reserved.</p>
+    <p class="text-red-400 font-semibold text-sm">⚠️ Your data is not stored. Privacy respected.</p>
+    <p class="text-xs text-indigo-300/70 mt-2">Note: This tool performs deterministic obfuscation, not cryptographic encryption. Do not use for storing sensitive secrets.</p>
+  </footer>
+  </div>
+
+  <script>
+    // (cleaned) No avatar fallbacks needed; using single path in HTML
+
+    // Deterministic hash function for consistent transformations
+    function simpleHash(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = (hash * 31 + str.charCodeAt(i)) % 1000000;
+      }
+      return hash;
+    }
+
+    // Show encryption tab with animation
+    document.getElementById('encryptBtn').addEventListener('click', () => {
+      const tab = document.getElementById('encryptionTab');
+      tab.classList.remove('hidden');
+      tab.classList.add('slide-in');
+      // Ensure the card stays centered when expanded
+      const card = tab.closest('.glass-card');
+      if (card) {
+        card.classList.add('mx-auto');
+      }
+      // update length counter and enforce max length
+      const input = document.getElementById('inputText');
+      const counter = document.getElementById('lengthCounter');
+      const toggle = document.getElementById('toggleVisibility');
+      if (input && counter) {
+        counter.textContent = `${input.value.length}/20`;
+        input.addEventListener('input', () => {
+          if (input.value.length > 20) input.value = input.value.slice(0, 20);
+          counter.textContent = `${input.value.length}/20`;
+        });
+      }
+      if (toggle && input) {
+        toggle.onclick = () => {
+          const isPwd = input.type === 'password';
+          input.type = isPwd ? 'text' : 'password';
+          toggle.textContent = isPwd ? 'Hide' : 'Show';
+        };
+      }
+    });
+
+    // Deterministic 10-layer encryption logic
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      const input = document.getElementById('inputText').value;
+      if (input.length < 8 || input.length > 20) {
+        showToast('Password must be 8–20 characters.');
+        return;
+      }
+
+      // Character sets for encryption
+      const chars = {
+        engLower: 'abcdefghijklmnopqrstuvwxyz',
+        engUpper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        codes: 'pythonjavascriptjavacsharpcppgoRustRubyPHPKotlinSwiftTypeScriptDartScalaPerlHaskellElixirClojureErlangLuaSolidityRMatlabJuliaFortranCOBOLPascalShellBatchPowerShellSQLNoSQLHTMLCSSXMLYAMLJSON',
+        words: ['alpha','beta','gamma','delta','omega','cipher','matrix','quantum','neon','hacker','crypto','root','zero','trace','vector','signal','shadow','ghost','proxy','kernel'],
+        numbers: '0123456789',
+        symbols: " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~§©®™•…–—‚„“”‘’·±÷×¶ºª°€£¥₹₩₽₺₨₿¢¤¿¡¬µ◇◆★☆✦✧✩✪✫✬✭✮✯✰✓✔✕✖✗♥♡❤❥∞≈≠≤≥√∆πµΩ←→↑↓↔↕↩↪⇧⇩◀▶▲▼◈◉◎◌○●◻◼◽◾□■△▲▽▼◁◀▷▶♠♣♦♤♧♢♪♫♭♯§✨",
+        urlSafeSymbols: "-_.~@"
+      };
+
+      let result = input;
+      const hash = simpleHash(input); // Deterministic seed based on input
+
+      // Layer 1: Caesar cipher with fixed shift
+      result = result.split('').map(c => String.fromCharCode(c.charCodeAt(0) + 3)).join('');
+
+      // Layer 2: Uppercase substitution based on hash
+      result = result.split('').map((c, i) => (hash + i) % 3 === 0 ? chars.engUpper[(c.charCodeAt(0) + hash) % chars.engUpper.length] : c).join('');
+
+      // Layer 3: Append code-themed character based on hash
+      result += chars.codes[hash % chars.codes.length];
+
+      // Layer 4: Append another code-themed character with offset
+      result += chars.codes[(hash + 7) % chars.codes.length];
+
+      // Extra: Append a random word token from list (deterministic by hash)
+      const word = chars.words[hash % chars.words.length];
+      result += '-' + word + '-';
+
+      // Layer 5: Insert number at fixed position based on hash
+      result = result.slice(0, 5) + chars.numbers[hash % chars.numbers.length] + result.slice(5);
+
+      // Layer 6: Insert symbol at fixed position based on hash (URL-safe aware)
+      const useUrlSafe = (document.getElementById('urlSafeToggle')?.checked) || false;
+      const symSet = useUrlSafe ? chars.urlSafeSymbols : chars.symbols;
+      result = result.slice(0, 8) + symSet[hash % symSet.length] + result.slice(8);
+
+      // Layer 7: Reverse string
+      result = result.split('').reverse().join('');
+
+      // Layer 8: Insert lowercase based on hash
+      result = result.split('').map((c, i) => (hash + i) % 4 === 0 ? c + chars.engLower[(hash + i) % chars.engLower.length] : c).join('');
+
+      // Layer 9: Deterministic permutation based on input length
+      const len = result.length;
+      const perm = Array.from({ length: len }, (_, i) => (hash + i) % len);
+      result = perm.map(i => result[i]).join('');
+
+      // Layer 10: Trim to 8-20 characters and add final symbol (URL-safe aware)
+      result = result.substring(0, 19) + symSet[(hash + 2) % symSet.length];
+
+      // Ensure length is within 8-20 and sanitize if URL-safe requested
+      result = result.substring(0, Math.min(result.length, 20));
+      if (useUrlSafe) {
+        result = result.replace(/[^A-Za-z0-9\-_.~@]/g, '-');
+      }
+
+      const outputSection = document.getElementById('outputSection');
+      document.getElementById('outputText').textContent = result;
+      outputSection.classList.remove('hidden');
+      outputSection.classList.add('pulse');
+      // Remove pulse animation after it completes to allow re-triggering
+      setTimeout(() => outputSection.classList.remove('pulse'), 300);
+    });
+
+    // Utility: Toast
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Copy to clipboard with toast
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      const output = document.getElementById('outputText').textContent;
+      navigator.clipboard.writeText(output).then(() => {
+        showToast('Generated output copied!');
+      });
+    });
+
+    // Cursor-reactive glow and 3D tilt
+    (function() {
+      const radiusElements = document.querySelectorAll('.interactive-radius');
+      radiusElements.forEach((el) => {
+        el.addEventListener('mouseenter', () => el.style.setProperty('--glow-opacity', '1'));
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          el.style.setProperty('--mx', x + '%');
+          el.style.setProperty('--my', y + '%');
+        });
+        el.addEventListener('mouseleave', () => el.style.setProperty('--glow-opacity', '0'));
+      });
+
+      const tiltElements = document.querySelectorAll('.tilt-3d');
+      const clamp = (n, min, max) => Math.max(min, Math.min(n, max));
+      tiltElements.forEach((el) => {
+        const maxTilt = 8; // degrees
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width - 0.5;
+          const py = (e.clientY - rect.top) / rect.height - 0.5;
+          const rx = clamp(-py * maxTilt, -maxTilt, maxTilt);
+          const ry = clamp(px * maxTilt, -maxTilt, maxTilt);
+          el.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg)';
+        });
+      });
+    })();
+
+    // Matrix Rain (toggleable)
+    (function() {
+      const canvas = document.getElementById('matrixCanvas');
+      const ctx = canvas.getContext('2d');
+      let animationId = null;
+      let columns = 0;
+      let drops = [];
+      let fontSizes = [];
+      let speeds = [];
+      const baseStep = 14; // horizontal spacing
+      const STORAGE_KEY = 'matrixEnabled';
+
+      function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        ctx.scale(dpr, dpr);
+        columns = Math.floor(window.innerWidth / baseStep);
+        drops = Array.from({ length: columns }, () => Math.random() * window.innerHeight);
+        fontSizes = Array.from({ length: columns }, () => 12 + Math.floor(Math.random() * 9)); // 12–20px
+        speeds = fontSizes.map(fs => 8 + Math.round((fs - 12) * 1.6)); // tie speed to size
+      }
+
+      function getMatrixChar() {
+        const r = Math.random();
+        if (r < 0.5) {
+          return Math.random() > 0.5 ? '1' : '0';
+        }
+        return String.fromCharCode(0x30A0 + Math.floor(Math.random() * 96));
+      }
+
+      function draw() {
+        ctx.fillStyle = 'rgba(11, 16, 32, 0.15)';
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+        for (let i = 0; i < columns; i++) {
+          const text = getMatrixChar();
+          const x = i * baseStep;
+          const y = drops[i];
+          const fs = fontSizes[i] || 14;
+          const sp = speeds[i] || 18;
+
+          ctx.font = fs + 'px JetBrains Mono, monospace';
+
+          // occasional bright head glyph
+          const isHead = Math.random() < 0.3;
+          if (isHead) {
+            ctx.fillStyle = 'rgba(209, 250, 229, 0.95)'; // emerald-100
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = 'rgba(16, 185, 129, 0.85)';
+            ctx.fillText(text, x, y);
+            ctx.shadowBlur = 0;
+          } else {
+            ctx.fillStyle = 'rgba(16, 185, 129, 0.85)';
+            ctx.fillText(text, x, y);
+          }
+
+          if (y > window.innerHeight + fs && Math.random() > 0.975) drops[i] = -Math.random() * 100;
+          drops[i] += sp;
+        }
+        animationId = requestAnimationFrame(draw);
+      }
+
+      function start() {
+        if (animationId) return;
+        canvas.style.display = 'block';
+        resize();
+        draw();
+        window.addEventListener('resize', resize);
+      }
+
+      function stop() {
+        if (!animationId) return;
+        cancelAnimationFrame(animationId);
+        animationId = null;
+        canvas.style.display = 'none';
+        window.removeEventListener('resize', resize);
+      }
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const toggleBtn = document.getElementById('matrixToggleBtn');
+
+      function applyState(shouldStart) {
+        if (shouldStart && !prefersReduced) {
+          toggleBtn.setAttribute('aria-pressed', 'true');
+          start();
+        } else {
+          toggleBtn.setAttribute('aria-pressed', 'false');
+          stop();
+        }
+      }
+
+      toggleBtn.addEventListener('click', () => {
+        const active = toggleBtn.getAttribute('aria-pressed') === 'true';
+        const next = !active;
+        applyState(next);
+        try { localStorage.setItem(STORAGE_KEY, String(next)); } catch (_) {}
+      });
+
+      // Initialize from saved preference, fallback to auto-start unless reduced motion
+      let saved = null;
+      try { saved = localStorage.getItem(STORAGE_KEY); } catch (_) {}
+      if (saved === 'true') {
+        applyState(true);
+      } else if (saved === 'false') {
+        applyState(false);
+      } else {
+        applyState(!prefersReduced);
+      }
+    })();
+
+    // Register service worker for PWA (optional)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
+
