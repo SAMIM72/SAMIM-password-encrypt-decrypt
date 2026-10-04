@@ -17,4 +17,4 @@ assets/profile.jpg
 with your own image, keeping the same filename. No HTML change is required.
 
 ## Run
-Open `index.html` in a browser, or serve the folder with a local web server.
+Open `https://samim72.github.io/SAMIM-password-encrypt-decrypt/` in a browser, or serve the folder with a local web server.
